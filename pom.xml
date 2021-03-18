@@ -21,7 +21,7 @@
         <maven.repo.username/>
         <maven.repo.password/>
         <!-- Classes and packages -->
-        <main.class>com.persoff68.fatodo.ExtendedSkeletonApplication</main.class>
+        <main.class>com.persoff68.fatodo.ExtendedWebfluxSkeletonApplication</main.class>
         <root.package>com.persoff68.fatodo</root.package>
         <contract.package>com.persoff68.fatodo.contract</contract.package>
         <!-- Dependency versions -->
@@ -157,10 +157,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <dependency>
@@ -171,7 +167,7 @@
         <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!-- Spring Boot Security -->
         <dependency>

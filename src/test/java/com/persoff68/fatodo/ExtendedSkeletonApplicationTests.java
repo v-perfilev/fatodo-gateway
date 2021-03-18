@@ -25,7 +25,7 @@ class ExtendedSkeletonApplicationTests {
 
     @Test
     void contextLoads() throws Exception {
-        ExtendedSkeletonApplication.main(new String[]{});
+        ExtendedWebfluxSkeletonApplication.main(new String[]{});
         mvc.perform(get("/"))
                 .andExpect(status().isNotFound());
     }

@@ -1,43 +1,34 @@
 package com.persoff68.fatodo.exception.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.persoff68.fatodo.exception.AbstractException;
 import com.persoff68.fatodo.exception.attribute.AttributeHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-
-@ControllerAdvice
+@RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
-@RequiredArgsConstructor
 public class ExceptionHandling {
 
-    private final ObjectMapper objectMapper;
-
     @ExceptionHandler(AbstractException.class)
-    public ResponseEntity<String> handleAbstractException(HttpServletRequest request, AbstractException e)
-            throws IOException {
-        return AttributeHandler.from(request, e).getResponseEntity(objectMapper);
+    public Mono<ServerResponse> handleAbstractException(ServerHttpRequest request, AbstractException e) {
+        return AttributeHandler.from(request, e).buildResponse();
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(HttpServletRequest request, RuntimeException e)
-            throws IOException {
+    public Mono<ServerResponse> handleRuntimeException(ServerHttpRequest request, RuntimeException e) {
         return e.getCause() instanceof Exception
-                ? AttributeHandler.from(request, (Exception) e.getCause()).getResponseEntity(objectMapper)
-                : AttributeHandler.from(request, e).getResponseEntity(objectMapper);
+                ? AttributeHandler.from(request, (Exception) e.getCause()).buildResponse()
+                : AttributeHandler.from(request, e).buildResponse();
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(HttpServletRequest request, Exception e)
-            throws IOException {
-        return AttributeHandler.from(request, e).getResponseEntity(objectMapper);
+    public Mono<ServerResponse> handleException(ServerHttpRequest request, Exception e) {
+        return AttributeHandler.from(request, e).buildResponse();
     }
 
 }
