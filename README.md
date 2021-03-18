@@ -1,4 +1,4 @@
-# Fatodo extended-skeleton
+# Fatodo extended-webflux-skeleton
 Very simple spring app that is used for development of base microservices.
 
 ## Tests

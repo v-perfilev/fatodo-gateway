@@ -11,8 +11,8 @@
     <groupId>com.persoff68.fatodo</groupId>
     <artifactId>extendedskeleton</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>extended-skeleton</name>
-    <description>Extended skeleton for Fatodo</description>
+    <name>extended-webflux-skeleton</name>
+    <description>Extended webflux skeleton for Fatodo</description>
 
     <properties>
         <!-- Common variables -->
@@ -142,7 +142,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Spring Cloud (extended-skeleton) -->
+        <!-- Spring Cloud (extended-webflux-skeleton) -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
