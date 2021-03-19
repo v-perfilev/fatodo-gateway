@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.persoff68.fatodo</groupId>
-    <artifactId>extendedskeleton</artifactId>
+    <artifactId>extendedwebfluxskeleton</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>extended-webflux-skeleton</name>
     <description>Extended webflux skeleton for Fatodo</description>
