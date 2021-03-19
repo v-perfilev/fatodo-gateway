@@ -15,7 +15,7 @@ public class SecurityLocaleFilter implements WebFilter {
 
     @Override
     @Nonnull
-    public Mono<Void> filter(@Nonnull ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> filter(@Nonnull ServerWebExchange exchange, @Nonnull WebFilterChain chain) {
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         return chain.filter(exchange);
     }

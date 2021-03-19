@@ -23,6 +23,7 @@ public class JwtFilter implements WebFilter {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
+    @Nonnull
     public Mono<Void> filter(@Nonnull ServerWebExchange exchange, @Nonnull WebFilterChain chain) {
         String jwt = extractJwtFromExchange(exchange);
         Authentication authentication = extractAuthenticationFromJwt(jwt);
