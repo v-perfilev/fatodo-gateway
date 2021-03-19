@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@SpringBootTest(classes = ExtendedWebfluxSkeletonApplication.class)
+@SpringBootTest(classes = FatodoGatewayApplication.class)
 @AutoConfigureWebTestClient
-class ExtendedSkeletonApplicationTests {
+class FatodoGatewayApplicationTests {
 
     @Autowired
     WebTestClient webTestClient;
@@ -17,7 +17,7 @@ class ExtendedSkeletonApplicationTests {
     @Test
     @WithMockUser
     void contextLoads() {
-        ExtendedWebfluxSkeletonApplication.main(new String[]{});
+        FatodoGatewayApplication.main(new String[]{});
         webTestClient
                 .get()
                 .uri("/")

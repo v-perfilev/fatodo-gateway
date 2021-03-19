@@ -10,11 +10,11 @@ import java.util.Properties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties.class)
-public class ExtendedWebfluxSkeletonApplication {
+public class FatodoGatewayApplication {
 
     public static void main(String[] args) {
         Properties defaultProfileProperties = AppProfileUtils.getDefaultProfile();
-        SpringApplication app = new SpringApplication(ExtendedWebfluxSkeletonApplication.class);
+        SpringApplication app = new SpringApplication(FatodoGatewayApplication.class);
         app.setDefaultProperties(defaultProfileProperties);
         app.run();
     }

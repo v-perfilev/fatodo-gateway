@@ -1,5 +1,5 @@
-# Fatodo extended-webflux-skeleton
-Very simple spring app that is used for development of base microservices.
+# Fatodo gateway
+Gateway for Fatodo based on Spring Cloud API Gateway
 
 ## Tests
 

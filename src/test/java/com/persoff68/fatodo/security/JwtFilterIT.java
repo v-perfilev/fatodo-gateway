@@ -1,6 +1,6 @@
 package com.persoff68.fatodo.security;
 
-import com.persoff68.fatodo.ExtendedWebfluxSkeletonApplication;
+import com.persoff68.fatodo.FatodoGatewayApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.function.Consumer;
 
-@SpringBootTest(classes = ExtendedWebfluxSkeletonApplication.class)
+@SpringBootTest(classes = FatodoGatewayApplication.class)
 @AutoConfigureWebTestClient
 public class JwtFilterIT {
 
