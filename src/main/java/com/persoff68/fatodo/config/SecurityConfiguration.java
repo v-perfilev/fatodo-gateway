@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -25,7 +28,12 @@ public class SecurityConfiguration {
             "/swagger-resources/**",
             "/configuration/security",
             "/swagger-ui.html",
-            "/webjars/**"
+            "/webjars/**",
+            "/ws/**",
+            "/api/auth/**",
+            "/api/oauth2/**",
+            "/api/user/check/**",
+            "/api/image/store/**"
     };
 
     private final SecurityProblemSupport securityProblemSupport;
@@ -36,7 +44,7 @@ public class SecurityConfiguration {
     SecurityWebFilterChain webFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf().disable()
-                .cors()
+                .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .httpBasic().disable()
                 .formLogin().disable()
@@ -51,6 +59,18 @@ public class SecurityConfiguration {
                 .pathMatchers(publicUrls).permitAll()
                 .anyExchange().authenticated()
                 .and().build();
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+        config.addAllowedHeader("*");
+        config.addAllowedOrigin("*");
+        config.addAllowedMethod("*");
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
 }
