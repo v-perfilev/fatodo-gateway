@@ -3,13 +3,13 @@ package com.persoff68.fatodo.exception.attribute.strategy;
 import com.persoff68.fatodo.exception.AbstractException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.reactive.function.server.ServerRequest;
 
 @RequiredArgsConstructor
-public final class ExceptionAttributeStrategy extends AbstractAttributeStrategy {
+public final class GlobalAttributeStrategy extends AbstractAttributeStrategy {
 
-    private final ServerHttpRequest request;
-    private final Exception exception;
+    private final ServerRequest request;
+    private final Throwable exception;
 
     @Override
     public HttpStatus getStatus() {
@@ -35,8 +35,8 @@ public final class ExceptionAttributeStrategy extends AbstractAttributeStrategy 
 
     @Override
     public void addPath() {
-        String path = request.getURI().getPath();
-        if (path != null) {
+        String path = request.path();
+        if (!path.isEmpty()) {
             errorAttributes.put("path", path);
         }
     }
