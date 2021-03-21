@@ -4,6 +4,7 @@ import com.persoff68.fatodo.exception.AbstractException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
 public final class GlobalAttributeStrategy extends AbstractAttributeStrategy {
@@ -13,9 +14,16 @@ public final class GlobalAttributeStrategy extends AbstractAttributeStrategy {
 
     @Override
     public HttpStatus getStatus() {
-        return exception instanceof AbstractException && ((AbstractException) exception).getStatus() != null
-                ? ((AbstractException) exception).getStatus()
-                : HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus status = null;
+        if (exception instanceof AbstractException) {
+            status = ((AbstractException) exception).getStatus();
+        } else if (exception instanceof ResponseStatusException) {
+            status = ((ResponseStatusException) exception).getStatus();
+        }
+        if (status == null) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return status;
     }
 
     @Override

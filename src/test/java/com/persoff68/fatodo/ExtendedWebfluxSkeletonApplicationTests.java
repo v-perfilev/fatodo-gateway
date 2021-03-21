@@ -9,7 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(classes = ExtendedWebfluxSkeletonApplication.class)
 @AutoConfigureWebTestClient
-class ExtendedSkeletonApplicationTests {
+class ExtendedWebfluxSkeletonApplicationTests {
 
     @Autowired
     WebTestClient webTestClient;
