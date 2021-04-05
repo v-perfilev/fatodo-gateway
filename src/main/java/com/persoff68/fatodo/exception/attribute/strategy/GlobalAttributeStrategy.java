@@ -1,16 +1,18 @@
 package com.persoff68.fatodo.exception.attribute.strategy;
 
 import com.persoff68.fatodo.exception.AbstractException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.server.ResponseStatusException;
 
-@RequiredArgsConstructor
 public final class GlobalAttributeStrategy extends AbstractAttributeStrategy {
 
     private final ServerRequest request;
-    private final Throwable exception;
+
+    public GlobalAttributeStrategy(ServerRequest request, Throwable exception) {
+        super(exception);
+        this.request = request;
+    }
 
     @Override
     public HttpStatus getStatus() {
@@ -24,21 +26,6 @@ public final class GlobalAttributeStrategy extends AbstractAttributeStrategy {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return status;
-    }
-
-    @Override
-    public String getFeedbackCode() {
-        return exception instanceof AbstractException && ((AbstractException) exception).getFeedBackCode() != null
-                ? ((AbstractException) exception).getFeedBackCode()
-                : null;
-    }
-
-    @Override
-    public void addErrorDetails() {
-        String message = exception.getMessage();
-        if (message != null) {
-            errorAttributes.put("message", message);
-        }
     }
 
     @Override

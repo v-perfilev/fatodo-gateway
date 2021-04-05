@@ -12,7 +12,7 @@ public class ExceptionController {
     static final String ENDPOINT = "/error";
 
     @GetMapping
-    private Mono<Void> clientException() {
+    public Mono<Void> clientException() {
         return Mono.error(new ClientException());
     }
 
