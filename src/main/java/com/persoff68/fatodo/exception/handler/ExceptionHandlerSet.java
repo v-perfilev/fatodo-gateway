@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
-public class ExceptionHandling {
+public class ExceptionHandlerSet {
 
     @ExceptionHandler(AbstractException.class)
     public Mono<ServerResponse> handleAbstractException(ServerHttpRequest request, AbstractException e) {
