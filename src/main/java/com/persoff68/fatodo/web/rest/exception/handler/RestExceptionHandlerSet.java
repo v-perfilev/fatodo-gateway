@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE + 10)
-public class RestExceptionHandling {
+public class RestExceptionHandlerSet {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Mono<ServerResponse> handleMethodArgumentNotValidException(ServerHttpRequest request) {
