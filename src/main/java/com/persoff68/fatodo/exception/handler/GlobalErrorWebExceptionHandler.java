@@ -25,9 +25,8 @@ public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHan
 
     public GlobalErrorWebExceptionHandler(GlobalErrorAttributes errorAttributes,
                                           ApplicationContext applicationContext,
-                                          WebProperties.Resources resources,
                                           ServerCodecConfigurer serverCodecConfigurer) {
-        super(errorAttributes, resources, applicationContext);
+        super(errorAttributes, new WebProperties.Resources(), applicationContext);
         super.setMessageWriters(serverCodecConfigurer.getWriters());
         super.setMessageReaders(serverCodecConfigurer.getReaders());
         this.errorAttributes = errorAttributes;

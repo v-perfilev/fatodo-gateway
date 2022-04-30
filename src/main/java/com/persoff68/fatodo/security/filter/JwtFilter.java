@@ -29,8 +29,7 @@ public class JwtFilter implements WebFilter {
         Authentication authentication = extractAuthenticationFromJwt(jwt);
 
         return authentication != null
-                ? chain.filter(exchange)
-                .subscriberContext(ReactiveSecurityContextHolder.withAuthentication(authentication))
+                ? chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
                 : chain.filter(exchange);
     }
 

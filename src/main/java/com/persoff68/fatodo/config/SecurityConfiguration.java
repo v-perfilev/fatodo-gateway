@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -38,9 +41,6 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .cors()
                 .and()
-                .httpBasic().disable()
-                .formLogin().disable()
-                .logout().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(securityProblemSupport)
                 .accessDeniedHandler(securityProblemSupport)
@@ -51,6 +51,18 @@ public class SecurityConfiguration {
                 .pathMatchers(publicUrls).permitAll()
                 .anyExchange().authenticated()
                 .and().build();
+    }
+
+    @Bean
+    CorsWebFilter corsWebFilter() {
+        CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+        config.addAllowedHeader("*");
+        config.addAllowedOriginPattern("*");
+        config.addAllowedMethod("*");
+        config.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return new CorsWebFilter(source);
     }
 
 }
