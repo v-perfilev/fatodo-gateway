@@ -1,6 +1,7 @@
 package com.persoff68.fatodo.config;
 
-import com.persoff68.fatodo.security.filter.JwtFilter;
+import com.persoff68.fatodo.security.filter.JwtAuthenticationConverter;
+import com.persoff68.fatodo.security.filter.JwtAuthenticationManager;
 import com.persoff68.fatodo.security.filter.SecurityLocaleFilter;
 import com.persoff68.fatodo.security.filter.SecurityProblemSupport;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +12,9 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
@@ -32,11 +34,15 @@ public class SecurityConfiguration {
     };
 
     private final SecurityProblemSupport securityProblemSupport;
-    private final JwtFilter jwtFilter;
+    private final JwtAuthenticationManager jwtAuthenticationManager;
+    private final JwtAuthenticationConverter jwtAuthenticationConverter;
     private final SecurityLocaleFilter securityLocaleFilter;
 
     @Bean
     SecurityWebFilterChain webFilterChain(ServerHttpSecurity http) {
+        AuthenticationWebFilter authenticationWebFilter = new AuthenticationWebFilter(jwtAuthenticationManager);
+        authenticationWebFilter.setServerAuthenticationConverter(jwtAuthenticationConverter);
+
         return http
                 .csrf().disable()
                 .cors()
@@ -45,7 +51,7 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(securityProblemSupport)
                 .accessDeniedHandler(securityProblemSupport)
                 .and()
-                .addFilterBefore(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .addFilterAfter(securityLocaleFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .authorizeExchange()
                 .pathMatchers(publicUrls).permitAll()
@@ -54,15 +60,15 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    CorsWebFilter corsWebFilter() {
-        CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
         config.addAllowedHeader("*");
         config.addAllowedOriginPattern("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-        return new CorsWebFilter(source);
+        return source;
     }
 
 }
