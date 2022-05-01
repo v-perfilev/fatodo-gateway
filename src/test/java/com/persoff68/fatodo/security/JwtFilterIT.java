@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 @SpringBootTest(classes = ExtendedWebfluxSkeletonApplication.class)
 @AutoConfigureWebTestClient
-public class JwtFilterIT {
+class JwtFilterIT {
 
     @Value("${test.jwt.user}")
     String userJwt;

@@ -16,13 +16,12 @@ public final class GlobalAttributeStrategy extends AbstractAttributeStrategy {
 
     @Override
     public HttpStatus getStatus() {
-        HttpStatus status = null;
-        if (exception instanceof AbstractException) {
-            status = ((AbstractException) exception).getStatus();
-        } else if (exception instanceof ResponseStatusException) {
-            status = ((ResponseStatusException) exception).getStatus();
-        }
-        if (status == null) {
+        HttpStatus status;
+        if (exception instanceof AbstractException abstractException) {
+            status = abstractException.getStatus();
+        } else if (exception instanceof ResponseStatusException responseStatusException) {
+            status = responseStatusException.getStatus();
+        } else {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return status;
