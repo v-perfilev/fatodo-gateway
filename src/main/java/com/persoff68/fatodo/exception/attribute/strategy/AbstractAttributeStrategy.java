@@ -51,5 +51,4 @@ public abstract class AbstractAttributeStrategy implements AttributeStrategy {
             errorAttributes.put("message", message);
         }
     }
-
 }
