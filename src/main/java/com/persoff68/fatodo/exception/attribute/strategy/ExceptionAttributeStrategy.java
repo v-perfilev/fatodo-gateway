@@ -15,8 +15,8 @@ public final class ExceptionAttributeStrategy extends AbstractAttributeStrategy 
 
     @Override
     public HttpStatus getStatus() {
-        return exception instanceof AbstractException && ((AbstractException) exception).getStatus() != null
-                ? ((AbstractException) exception).getStatus()
+        return exception instanceof AbstractException e && e.getStatus() != null
+                ? e.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
     }
 

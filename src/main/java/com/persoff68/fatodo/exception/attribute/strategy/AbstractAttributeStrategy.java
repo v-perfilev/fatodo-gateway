@@ -39,8 +39,8 @@ public abstract class AbstractAttributeStrategy implements AttributeStrategy {
 
     @Override
     public String getFeedbackCode() {
-        return exception instanceof AbstractException && ((AbstractException) exception).getFeedBackCode() != null
-                ? ((AbstractException) exception).getFeedBackCode()
+        return exception instanceof AbstractException e && e.getFeedBackCode() != null
+                ? e.getFeedBackCode()
                 : null;
     }
 
@@ -51,5 +51,4 @@ public abstract class AbstractAttributeStrategy implements AttributeStrategy {
             errorAttributes.put("message", message);
         }
     }
-
 }

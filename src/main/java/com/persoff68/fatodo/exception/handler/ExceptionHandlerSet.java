@@ -21,8 +21,8 @@ public class ExceptionHandlerSet {
 
     @ExceptionHandler(RuntimeException.class)
     public Mono<ServerResponse> handleRuntimeException(ServerHttpRequest request, RuntimeException e) {
-        return e.getCause() instanceof Exception
-                ? AttributeHandler.from(request, (Exception) e.getCause()).buildResponse()
+        return e.getCause() instanceof Exception cause
+                ? AttributeHandler.from(request, cause).buildResponse()
                 : AttributeHandler.from(request, e).buildResponse();
     }
 
