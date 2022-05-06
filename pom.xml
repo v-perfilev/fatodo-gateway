@@ -38,6 +38,7 @@
         <logback-kafka-appender.version>0.2.0-RC2</logback-kafka-appender.version>
         <micrometer-registry-influx.version>1.8.5</micrometer-registry-influx.version>
         <swagger.version>1.6.8</swagger.version>
+        <netty-resolver.version>4.1.76.Final</netty-resolver.version>
         <!-- Plugin versions -->
         <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>
@@ -145,6 +146,13 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- Netty Mac DNS Resolver management -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-resolver-dns-native-macos</artifactId>
+                <version>${netty-resolver.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -281,6 +289,13 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+
+        <!-- Netty Mac DNS Resolver -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <classifier>osx-aarch_64</classifier>
         </dependency>
 
         <!-- Test -->
