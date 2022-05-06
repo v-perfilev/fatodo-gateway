@@ -25,12 +25,12 @@ public class SecurityConfiguration {
 
     private static final String[] publicUrls = {
             "/actuator/**",
-            "/v2/api-docs",
-            "/configuration/ui",
-            "/swagger-resources/**",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
+
+    private static final String[] publicServiceUrls = {
             "/ws/**",
             "/api/auth/**",
             "/api/oauth2/**",
@@ -60,6 +60,7 @@ public class SecurityConfiguration {
                 .addFilterAfter(securityLocaleFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .authorizeExchange()
                 .pathMatchers(publicUrls).permitAll()
+                .pathMatchers(publicServiceUrls).permitAll()
                 .anyExchange().authenticated()
                 .and().build();
     }
