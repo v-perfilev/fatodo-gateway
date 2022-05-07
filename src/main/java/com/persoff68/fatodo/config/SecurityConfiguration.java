@@ -24,7 +24,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 public class SecurityConfiguration {
 
     private static final String[] publicUrls = {
-            "/actuator/**",
+            "/management/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html"
