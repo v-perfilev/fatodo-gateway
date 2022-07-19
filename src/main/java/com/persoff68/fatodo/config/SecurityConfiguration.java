@@ -2,7 +2,6 @@ package com.persoff68.fatodo.config;
 
 import com.persoff68.fatodo.security.filter.JwtAuthenticationConverter;
 import com.persoff68.fatodo.security.filter.JwtAuthenticationManager;
-import com.persoff68.fatodo.security.filter.SecurityLocaleFilter;
 import com.persoff68.fatodo.security.filter.SecurityProblemSupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +40,6 @@ public class SecurityConfiguration {
     private final SecurityProblemSupport securityProblemSupport;
     private final JwtAuthenticationManager jwtAuthenticationManager;
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
-    private final SecurityLocaleFilter securityLocaleFilter;
 
     @Bean
     SecurityWebFilterChain webFilterChain(ServerHttpSecurity http) {
@@ -57,7 +55,6 @@ public class SecurityConfiguration {
                 .accessDeniedHandler(securityProblemSupport)
                 .and()
                 .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-                .addFilterAfter(securityLocaleFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .authorizeExchange()
                 .pathMatchers(publicUrls).permitAll()
                 .pathMatchers(publicServiceUrls).permitAll()
