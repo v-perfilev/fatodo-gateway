@@ -31,6 +31,7 @@ public class SecurityConfiguration {
 
     private static final String[] publicServiceUrls = {
             "/ws/**",
+            "/api/health/**",
             "/api/auth/**",
             "/api/oauth2/**",
             "/api/user/check/**",
